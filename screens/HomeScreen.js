@@ -1,18 +1,16 @@
 import React from 'react';
-import FeaturesSection from '../components/FeaturesSection';
+import { View ,Text} from 'react-native';
 import PeauDoctor from '../components/PeauDoctor';
-import Camera from '../components/Camera';
-import { View } from "react-native";
-import HomeHeader from '../components/HomeHeader';
-
-export default function HomeScreen ({navigation,route}) {
+import ScreenWraper from '../components/ScreenWraper';
+export default function HomeScreen({ navigation, route }) {
+    const screen = route.params.screen;
     return (
-        
-        <View style={ {flex:1, flexDirection: "column" }}>
-            <HomeHeader></HomeHeader>
-            <FeaturesSection></FeaturesSection>
-            <PeauDoctor></PeauDoctor>
-            <Camera navigation={navigation} />
-        </View>
+        <ScreenWraper navigation={navigation}>
+            {screen == 'Home' ? <PeauDoctor></PeauDoctor> :
+                screen == 'SicknessScreen' ? <Text>Sickness Info</Text> :
+                    screen == 'MedicalCenterScreen' ? <Text>Medical Center</Text> :
+                        screen == 'ComunityScreen' ? <Text>Community</Text> : 
+                        null}
+        </ScreenWraper>
     );
 };

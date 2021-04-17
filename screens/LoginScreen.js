@@ -14,7 +14,7 @@ export default class LoginScreen extends Component {
         <Logo />
         <Form />
         <SignupSection />
-        <ButtonSubmit accepted={() => navigation.navigate('HomeScreen', {})} />
+        <ButtonSubmit accepted={() => navigation.navigate('HomeScreen', {screen:'Home'})} />
       </Wallpaper>
     );
   }

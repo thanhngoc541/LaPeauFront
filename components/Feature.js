@@ -6,7 +6,7 @@ export default (props) => {
     const { src, text, onPress } = props;
 
     return (
-        <TouchableOpacity style={styles.container}>
+        <TouchableOpacity style={styles.container} onPress={onPress}>
             <Image source={src} style={{ height: 30, width: 30 }} />
             <Text style={styles.text}> {text} </Text>
         </TouchableOpacity>
