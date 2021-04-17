@@ -24,43 +24,37 @@ export default function App({ navigation }) {
   if (hasPermission === false) {
     return <Text>No access to camera</Text>;
   }
-  const fetchApi = async (data) => {
+  const fetchApi = async (image) => {
     console.log('fetching...');
+    const data = JSON.stringify({ img: image, type: 'aplication/json' })
+    console.log(typeof image)
     const result = await fetch('https://1723ab792224.ngrok.io/ml/detect', {
-      method: 'POST',
+      method: "POST",
       headers: {
-        // Accept: 'application/json',
-        'Content-Type': 'multipart/form-data'
+        Accept: "application/json",
+        "Content-Type": "application/json"
       },
       body: data
-    }).then((response) => {
-      console.log('ahihi')
-      // if (response==null) console.log('null');
-      // console.log(response);
-      return response.json();
-    }).catch((error) => {
-      console.error(error);
-      return error;
+      //JSON.stringify({
+      //img: image
+      //})
+    }).catch(error => {
+      console.warn(error);
     });
-    console.log('end fetch');
+
     return result;
     // alert('height:' + photo.height + ' width:' + photo.width);
   }
   const snap = async () => {
     if (camera) {
-      let photo = await camera.takePictureAsync();
+      let photo = await camera.takePictureAsync({
+        quality: 0.35,
+        base64: true,
+      });
 
       setPhoto(photo);
-      console.log(photo)
-      
-      // console.log(base64);
-      // const uri = photo.uri;
-      // console.log(uri);
-      var data = new FormData()
-      data.append('name', 'file');
-      data.append('image', 'photo');
-
-      const result = await fetchApi(data);
+      const image = photo.base64;
+      const result = await fetchApi(image);
       console.log('Fetched!')
       console.log(result[0]);
     }
