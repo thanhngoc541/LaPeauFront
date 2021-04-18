@@ -8,6 +8,7 @@ export default function App({ navigation }) {
   const front = Camera.Constants.Type.front;
   const [type, setType] = useState(back);
   const [photo, setPhoto] = useState(null);
+  const [isLoading,setIsLoading]=useState(false);
   const [base64, setBase64] = useState(null);
   let camera;
   const { width: winWidth, height: winHeight } = Dimensions.get('window');
@@ -42,7 +43,7 @@ export default function App({ navigation }) {
       console.warn(error);
     });
 
-    return result;
+    return result.json();
     // alert('height:' + photo.height + ' width:' + photo.width);
   }
   const snap = async () => {
@@ -51,12 +52,15 @@ export default function App({ navigation }) {
         quality: 0.35,
         base64: true,
       });
-
+      // setIsLoading(true);
       setPhoto(photo);
       const image = photo.base64;
+      
       const result = await fetchApi(image);
+      setIsLoading(false);
       console.log('Fetched!')
-      console.log(result[0]);
+      console.log(result);
+      navigation.navigate('HomeScreen', { screen:'SicknessScreen',res: result })
     }
 
   }
@@ -103,10 +107,10 @@ export default function App({ navigation }) {
             {takePhotoBtn()}
           </View>
         </Camera>) :
-        <View style={{}}>
-
+        <View style={{justifyContent:'center',alignItems:'center'}}>
           <Image source={{ uri: photo.uri }}
-            style={{ width: winWidth, height: winHeight }} />
+            style={{ width: winWidth, height: winHeight-100 }} />
+          <Image source={require('../assets/loading.gif')} style={{position:'absolute', width:50,height:50}} />
           <Button style={{}} title="Detect again" onPress={() => setPhoto(null)}></Button>
         </View>}
 

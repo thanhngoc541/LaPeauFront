@@ -7,7 +7,7 @@ export default (props) => {
     
     return (
         <View style={{ flex: 1, flexDirection: "column" }}>
-            <HomeHeader></HomeHeader>
+            <HomeHeader navigation={props.navigation}></HomeHeader>
             <FeaturesSection navigation={props.navigation}></FeaturesSection>
             {props.children}
             <Camera navigation={props.navigation} />
