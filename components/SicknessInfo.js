@@ -34,11 +34,12 @@ export default function SicknessInfo(props) {
             <View style={styles.container}>
                 {item == null ? (<FlatList
                     data={[
-                        { ...info[0], probability: res[0] },
-                        { ...info[1], probability: res[1] },
-                        { ...info[2], probability: res[2] },
-                        { ...info[3], probability: res[3] },
+                        { ...info[0], key: res[0].name, probability: res[0] },
+                        { ...info[1], key: res[1].name, probability: res[1] },
+                        { ...info[2], key: res[2].name, probability: res[2] },
+                        { ...info[3], key: res[3].name, probability: res[3] },
                     ]}
+                    keyExtractor={item => item.name.toString()}
                     renderItem={({ item }) =>
                         <Button onPress={() => { setItem(item) }}
                             title={item.name + " " + (!item.probability ? "" : (": " + item.probability + "%"))} />}
@@ -63,7 +64,6 @@ export default function SicknessInfo(props) {
     useEffect(() => {
         const fetchInfo = async () => {
             const res = await getSicknessInfo();
-
             setInfo(res);
             setItem(null);
         }

@@ -42,8 +42,8 @@ export default function MedicalCenter() {
             <View style={styles.container}>
                 {item==null?(<FlatList
                     data={[
-                        info[0],
-                        info[1],
+                        {...info[0], key:1},
+                        {...info[1], key:2}
                     ]}
                     renderItem={({ item }) => <Button onPress={() => {setItem(item)}} title={item.name} />}
                 />):

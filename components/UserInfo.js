@@ -36,14 +36,13 @@ const fetchRecordDetail = async (id) => {
 export default function UserInfo(props) {
     const [record, setRecord] = useState(null);
     const [item, setItem] = useState(null);
-    let { res } = props;
-    if (res == null) res = ["", "", "", ""];
 
     useEffect(() => {
         const fetchInfo = async () => {
             const res = await getRecordInfo();
             setRecord(res);
             setItem(null);
+            console.log(res);
         }
         fetchInfo();
     }, []);
@@ -65,12 +64,10 @@ export default function UserInfo(props) {
     }
 
     const RecordList = () => {
-        console.log(res)
-        
+        if (record==null) return null;
         const infoList = [];
-        info.forEach((i) => {infoList.add(i)});
 
-        return (info == null ? null :
+        return (record == null ? null :
             <View style={styles.container}>
                 {item == null ? (<FlatList
                     data={infoList}
@@ -90,9 +87,9 @@ export default function UserInfo(props) {
 
     return (
         <View style={{ flex: 5, alignItems: 'center', justifyContent: 'center', marginTop: 20 }} >
-            <Text style={{ position: 'absolute', top: 20, fontSize: 24, fontWeight: "700", letterSpacing: 3 }}>User Information</Text>
+            <Text style={{ margin:10, fontSize: 24, fontWeight: "700", letterSpacing: 3 }}>User Information</Text>
             {UserList()}
-            <Text style={{ position: 'absolute', top: 20, fontSize: 24, fontWeight: "700", letterSpacing: 3 }}>Records</Text>
+            <Text style={{ fontSize: 24, fontWeight: "700", letterSpacing: 3 }}>Records</Text>
             {RecordList()}
         </View>
     )

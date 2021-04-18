@@ -19,7 +19,7 @@ export default function OnboardingStack(props) {
             <Stack.Screen
                 name="HomeScreen"
                 component={HomeScreen}
-                options={({ route }) => ({ title: 'Welcome '+ route.params.name })}
+                options={({ route }) => ({ title: 'Welcome ' })}
             />
             <Stack.Screen
                 name="DetectScreen"

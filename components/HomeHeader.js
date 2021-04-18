@@ -25,17 +25,17 @@ const HomeHeader = (props) => (
                 flex: 0.1,
                 margin: 4,
                 width: 40,
-                height: 40,
-                marginRight: 10
+                height: 45,
+                marginRight: 15
             }}
             onPress={() => { props.navigation.navigate('HomeScreen', { screen: 'UserInfoScreen' }) }}
         >
             <Image source={require('../assets/username.png')} style={{
-                flex: 0.1,
-                margin: 4,
-                width: 40,
-                height: 40,
-                marginRight: 10
+                // flex: 0.1,
+                // margin: 4,
+                // width: 40,
+                // height: 40,
+                // marginRight: 10
             }}></Image>
         </TouchableOpacity>
     </View >
