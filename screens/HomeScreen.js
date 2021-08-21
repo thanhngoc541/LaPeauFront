@@ -7,7 +7,7 @@ import ScreenWraper from '../components/ScreenWraper';
 import SicknessInfo from '../components/SicknessInfo';
 import UserInfo from '../components/UserInfo';
 export default function HomeScreen({ navigation, route }) {
-    const screen = route.params.screen;
+    const screen = route.params?.screen;
     return (
         <ScreenWraper navigation={navigation}>
             {screen == 'Home' ? <PeauDoctor></PeauDoctor> :

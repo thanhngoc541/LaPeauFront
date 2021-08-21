@@ -7,6 +7,7 @@ import { StyleSheet, TouchableHighlight, Button, View, SafeAreaView, Text, Alert
 import HomeScreen from '../screens/HomeScreen';
 import DetectScreen from '../screens/DetectScreen';
 import LoginScreen from '../screens/LoginScreen';
+import UserInfoScreen from '../screens/UserInfoScreen';
 const Stack = createStackNavigator();
 export default function OnboardingStack(props) {
     return (
@@ -14,12 +15,17 @@ export default function OnboardingStack(props) {
             <Stack.Screen
                 name="LoginScreen"
                 component={LoginScreen}
-                options={{ title: 'Login' }}
+                options={({ route }) => ({ title: 'Login' })}
             />
             <Stack.Screen
                 name="HomeScreen"
                 component={HomeScreen}
-                options={({ route }) => ({ title: 'Welcome ' })}
+                options={({ route }) => ({ title: 'Welcome ', screen: 'Home' })}
+            />
+            <Stack.Screen
+                name="UserInfoScreen"
+                component={UserInfoScreen}
+                options={({ route }) => ({ title: 'Welcome '})}
             />
             <Stack.Screen
                 name="DetectScreen"

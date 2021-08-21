@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
 export default ({ navigation }) => (
     
     <TouchableHighlight
-        style={{ flex: 1, backgroundColor: '#27AAE1', alignItems: 'center', justifyContent: 'center' }}
+        style={{ flex: 1, alignItems: 'center', justifyContent: 'center',height:100 }}
         activeOpacity={0.6}
         underlayColor="#DDDDDD"
         onPress={() => navigation.navigate('DetectScreen', {})}>

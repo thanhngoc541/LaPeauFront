@@ -8,7 +8,7 @@ export default function App({ navigation }) {
   const front = Camera.Constants.Type.front;
   const [type, setType] = useState(back);
   const [photo, setPhoto] = useState(null);
-  const [isLoading,setIsLoading]=useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [base64, setBase64] = useState(null);
   let camera;
   const { width: winWidth, height: winHeight } = Dimensions.get('window');
@@ -25,42 +25,33 @@ export default function App({ navigation }) {
   if (hasPermission === false) {
     return <Text>No access to camera</Text>;
   }
-  const fetchApi = async (image) => {
-    console.log('fetching...');
-    const data = JSON.stringify({ img: image, type: 'aplication/json' })
-    console.log(typeof image)
-    const result = await fetch('https://1723ab792224.ngrok.io/ml/detect', {
-      method: "POST",
+  const fetchApi = (data) => {
+    const formData = new FormData();
+    formData.append('image_base64', data);
+    return fetch('https://api.fpt.ai/vision/idr/vnm', {
+      method: 'POST',
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
+        'api-key': 'Lc7P5FU4eM3urRNVUMwNOPPD63NhULTK'
       },
-      body: data
-      //JSON.stringify({
-      //img: image
-      //})
-    }).catch(error => {
-      console.warn(error);
-    });
+      body: formData
 
-    return result.json();
-    // alert('height:' + photo.height + ' width:' + photo.width);
+    }).then(res => res.json()).then((response) => {
+      return  response.data[0]
+    });
+    
   }
   const snap = async () => {
     if (camera) {
       let photo = await camera.takePictureAsync({
-        quality: 0.35,
+        quality: 1,
         base64: true,
       });
-      // setIsLoading(true);
+      setIsLoading(true);
       setPhoto(photo);
-      const image = photo.base64;
-      
-      const result = await fetchApi(image);
+      const result = await fetchApi(photo.base64);
       setIsLoading(false);
       console.log('Fetched!')
-      console.log(result);
-      navigation.navigate('HomeScreen', { screen:'SicknessScreen',res: result })
+      navigation.navigate('UserInfoScreen', { data: result })
     }
 
   }
@@ -107,10 +98,10 @@ export default function App({ navigation }) {
             {takePhotoBtn()}
           </View>
         </Camera>) :
-        <View style={{justifyContent:'center',alignItems:'center'}}>
+        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
           <Image source={{ uri: photo.uri }}
-            style={{ width: winWidth, height: winHeight-100 }} />
-          <Image source={require('../assets/loading.gif')} style={{position:'absolute', width:50,height:50}} />
+            style={{ width: winWidth, height: winHeight - 100 }} />
+          <Image source={require('../assets/loading.gif')} style={{ position: 'absolute', width: 50, height: 50 }} />
           <Button style={{}} title="Detect again" onPress={() => setPhoto(null)}></Button>
         </View>}
 

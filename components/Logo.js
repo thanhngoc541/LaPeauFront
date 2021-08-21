@@ -9,7 +9,8 @@ export default class Logo extends Component {
     return (
       <View style={styles.container}>
         <Image source={logoImg} style={styles.image} />
-        <Text style={styles.text}>PEAU DOCTOR</Text>
+        <Text style={styles.text}>GUSTO DOCTOR</Text>
+        <Text style={styles.subtitle}> Scan your identity card to start</Text>
       </View>
     );
   }
@@ -17,7 +18,7 @@ export default class Logo extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 3,
+    flex: 4,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -32,4 +33,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     fontSize:24
   },
+  subtitle:{
+    color: 'white',
+  }
 });
